@@ -1,0 +1,10 @@
+.idea
+.pytest_cache
+.DS_Store
+__pycache__
+
+# checkout modelica-buildings manually
+modelica-buildings
+
+license.lic
+mac_address.txt
