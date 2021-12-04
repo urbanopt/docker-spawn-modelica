@@ -26,6 +26,8 @@ jobs:
           docker-compose --version
       -
         name: Install dependencies
+        env:
+          LICENSE_FILE : ${{secrets.LICENSE}}
         run: |
           git clone --single-branch --branch issue2204_gmt_mbl https://github.com/lbl-srg/modelica-buildings.git modelica-buildings
           
@@ -33,10 +35,16 @@ jobs:
           pip install --upgrade pip
           pip install poetry
           poetry install
+
+          # save the LICENSE to a file
+          ls -alt
+          echo $LICENSE_FILE >> license.lic
+          ls -alt
       -
         name: Run unittests
+        # env:
+          # MAC_ADDRESS: ${{ secrets.MAC_ADDRESS }}
         run: |
-
           poetry run py.test -s 
       -
         name: Job Failed
@@ -45,7 +53,7 @@ jobs:
           echo "Maybe these logs will help?"
           free -tm
           ls -alt $GITHUB_WORKSPACE
-          echo "============================================ stdout.log ========================================="
+          echo "============================================ LOGS ========================================="
           find $GITHUB_WORKSPACE -type f -name 'stdout.log' -print | while read filename; do
             echo "$filename"
             cat "$filename"
