@@ -3,7 +3,8 @@
 
 FROM ubuntu:20.04
 ENV MODELON_LICENSE_PATH /home/simulator
-ENV SPAWN_FILE Spawn-0.2.0-98fa590817-Linux
+ENV SPAWN_VERSION v0.2.1
+ENV SPAWN_FILE Spawn-0.2.1-5d127d5774-Linux
 
 RUN apt update && apt install -y \
         libncurses5 \
@@ -11,7 +12,7 @@ RUN apt update && apt install -y \
 		vim \
     	wget && \
     cd /opt && \
-    wget https://spawn.s3.amazonaws.com/builds/${SPAWN_FILE}.tar.gz && \
+    wget https://github.com/NREL/Spawn/releases/download/${SPAWN_VERSION}/${SPAWN_FILE}.tar.gz && \
     tar xzf /opt/${SPAWN_FILE}.tar.gz && \
     mv /opt/${SPAWN_FILE}/ /opt/spawn && \
     ln -s /opt/spawn/bin/spawn /usr/local/bin/
